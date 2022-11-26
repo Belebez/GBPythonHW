@@ -3,3 +3,23 @@
 # 6 -> да
 # 7 -> да
 # 1 -> нет
+
+flag = False
+
+while flag != True:  # создаем цикл, пока пользователь не остановит программу
+
+    num_day = int(input('Введите день недели: '))
+    # делаем проверку на введенный день.
+    if num_day == 6 or num_day == 7:
+        print(f'День {num_day} является выходным.')
+    elif num_day > 7:
+        print(f'{num_day} такого дня нет в неделе, введите другое число.')
+    else:
+        print(f'{num_day} является рабочим днём.')
+
+    replay = input('Сделаете проверку еще раз?(да/нет): ')
+    # создаём условия для повтора или выхода из программы
+    if replay.lower() == 'да' or replay.lower() == 'yes':
+        flag = False
+    else:
+        flag = True

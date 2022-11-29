@@ -14,8 +14,6 @@
 
 from random import randint as rnd
 
-from numba.typed.listobject import new_list
-
 print("1 этап. Программа создаст список из случайных четырехзначных чисел.")
 
 size = int(rnd(4, 10))

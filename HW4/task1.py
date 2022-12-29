@@ -48,7 +48,7 @@ def create_eq(k):
                     equation = f'{equation[:-1]}- {abs(koef[i])} '
                 else:
                     equation = f'{equation[:-1]}- {abs(koef[i])}*x**{i} +'
-    return  equation + "= 0"
+    return equation + "= 0"
 
 # функция записи в файл
 def write_file(name, st):
@@ -84,13 +84,13 @@ def degree_mn(eq):
 def koef_mn(eq):
     if 'x' in eq:
         i = eq.find('x')
-        num = int(eq[2:i - 1])
+        num = int(eq[:i - 1])
     return num
 
 
 # складываем полученные выражения
-
 eq_1 = str(eq_1).replace(' ', '')
+eq_1 = eq_1[2:-2]
 print(eq_1)
 
 print(degree_mn(eq_1))

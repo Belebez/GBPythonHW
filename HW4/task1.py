@@ -70,8 +70,6 @@ print('Выражение первого многочлена:', *eq_1)
 # print('Выражение второго многочлена:', *eq_2)
 
 # получение степени многочлена
-
-
 def degree_mn(eq):
     if 'x**' in eq:
         i = eq.find('**')
@@ -82,6 +80,7 @@ def degree_mn(eq):
         num = -1
     return num
 
+# получение коэфф многочлена
 def koef_mn(eq):
     if 'x' in eq:
         i = eq.find('x')

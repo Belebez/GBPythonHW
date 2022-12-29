@@ -69,8 +69,31 @@ print()
 print('Выражение первого многочлена:', *eq_1)
 # print('Выражение второго многочлена:', *eq_2)
 
+# получение степени многочлена
+
+
+def degree_mn(eq):
+    if 'x**' in eq:
+        i = eq.find('**')
+        num = int(eq[i + 2:i + 3])
+    elif ('x' in eq) and ('**' not in eq):
+        num = 1
+    else:
+        num = -1
+    return num
+
+def koef_mn(eq):
+    if 'x' in eq:
+        i = eq.find('x')
+        num = int(eq[2:i - 1])
+    return num
+
+
 # складываем полученные выражения
 
 eq_1 = str(eq_1).replace(' ', '')
-
 print(eq_1)
+
+print(degree_mn(eq_1))
+print(koef_mn(eq_1))
+

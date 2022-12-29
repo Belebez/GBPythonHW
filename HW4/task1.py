@@ -21,11 +21,11 @@ def create_eq(k):
         if koef[i] > 0:
             if koef[i] == 1:
                 if i == 1:
-                    equation += f' x +'
+                    equation += f'x +'
                 elif i == 0:
-                    equation += f' 1 '
+                    equation += f'1 '
                 else:
-                    equation += f' x**{i} +'
+                    equation += f'x**{i} +'
             else:
                 if i == 1:
                     equation += f' {koef[i]}*x +'
@@ -48,7 +48,7 @@ def create_eq(k):
                     equation = f'{equation[:-1]}- {abs(koef[i])} '
                 else:
                     equation = f'{equation[:-1]}- {abs(koef[i])}*x**{i} +'
-    return equation + "= 0"
+    return equation.lstrip() + "= 0"
 
 # функция записи в файл
 def write_file(name, st):
@@ -89,10 +89,11 @@ def koef_mn(eq):
 
 
 # складываем полученные выражения
-eq_1 = str(eq_1).replace(' ', '')
-eq_1 = eq_1[2:-2]
+eq_1 = ' '.join(eq_1)
+eq_1 = eq_1[:-4]
+eq_1 = eq_1.split(' ')
 print(eq_1)
 
-print(degree_mn(eq_1))
-print(koef_mn(eq_1))
+
+
 

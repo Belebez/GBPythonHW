@@ -8,23 +8,23 @@ print('Программа для игры с конфетами, человек 
       'Первый ход определяется жеребьёвкой. За один ход можно забрать не более чем 28 конфет.')
 print()
 
-def input_dat(name):
+def human_quantity(name):
     x = int(input(f"{name}, введите количество конфет, которое возьмете от 1 до 28: "))
     while x < 1 or x > 28:
         x = int(input(f"{name}, введите корректное количество конфет: "))
     return x
 
-
-def p_print(name, quantity, counter, value):
-    print(
-        f"Ходил {name}, он взял {quantity}, теперь у него {counter}. Осталось на столе {value} конфет.")
-
-
-def bot_calc(value):
+def bot_quantity(value):
     move_bot = randint(1, 28)
     while value-move_bot <= 28 and value > 29:
         move_bot = randint(1, 28)
     return move_bot
+
+
+
+def print_console(name, quantity, counter, value):
+    print(
+        f"Ходил {name}, он взял {quantity}, теперь у него {counter}. Осталось на столе {value} конфет.")
 
 
 player1 = 'Человек'
@@ -42,17 +42,17 @@ else:
 
 while value > 28:
     if flag:
-        quantity = input_dat(player1)
+        quantity = human_quantity(player1)
         counter1 += quantity
         value -= quantity
         flag = False
-        p_print(player1, quantity, counter1, value)
+        print_console(player1, quantity, counter1, value)
     else:
-        quantity = bot_calc(value)
+        quantity = bot_quantity(value)
         counter2 += quantity
         value -= quantity
         flag = True
-        p_print(player2, quantity, counter2, value)
+        print_console(player2, quantity, counter2, value)
 
 if flag:
     print(f"Выиграл {player1}")

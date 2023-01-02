@@ -8,7 +8,7 @@ import random
 
 
 k_1 = int(input("Для первого выражения, введите натуральную степень k = "))
-# k_2 = int(input("Для второго выражения, введите натуральную степень k = "))
+k_2 = int(input("Для второго выражения, введите натуральную степень k = "))
 
 # функция создания выражения многочлена
 def create_eq(k):
@@ -58,41 +58,77 @@ def write_file(name, st):
 
 # записываем полученные многочлен в файл
 write_file('task11.txt', create_eq(k_1))
-# write_file('task12.txt', create_eq(k_2))
+write_file('task12.txt', create_eq(k_2))
 
 # вывод выражения в консоль
 with open('task11.txt', 'r') as data:
     eq_1 = data.readlines()
-# with open('task12.txt', 'r') as data:
-#     eq_2 = data.readlines()
+with open('task12.txt', 'r') as data:
+    eq_2 = data.readlines()
 print()
 print('Выражение первого многочлена:', *eq_1)
-# print('Выражение второго многочлена:', *eq_2)
-
-# получение степени многочлена
-def degree_mn(eq):
-    if 'x**' in eq:
-        i = eq.find('**')
-        num = int(eq[i + 2:i + 3])
-    elif ('x' in eq) and ('**' not in eq):
-        num = 1
-    else:
-        num = -1
-    return num
-
-# получение коэфф многочлена
-def koef_mn(eq):
-    if 'x' in eq:
-        i = eq.find('x')
-        num = int(eq[:i - 1])
-    return num
+print('Выражение второго многочлена:', *eq_2)
 
 
-# складываем полученные выражения
+def decode(equation: dict) -> str:
+    new_equation = []
+    for key, value in equation.items():
+        if value != 0:
+            new_equation.append(f'{value}*x**{key}')
+    new_equation = ' + '.join(new_equation) + ' = 0'
+    new_equation = new_equation.replace('+ -', '- ').replace(' 1*x', ' x').replace('*x**0', '').replace('x**1', 'x')
+    return new_equation
+
+def encode(equation: str) -> dict:
+    equation = equation.replace(' + ', ' ').replace('- ', '-').replace(' - ', ' -')\
+        .replace(' -x', ' -1*x').replace(' x', ' 1*x').replace('*x ', '*x**1 ').split()
+    dict_equation = {}
+    for item in equation:
+        i = item.split('*x**')
+        if len(i) > 1:
+            dict_equation[int(i[1])] = int(i[0])
+        elif len(i) == 1:
+            dict_equation[0] = int(i[0])
+    return dict_equation
+
+# # получение степени многочлена
+# def degree_mn(eq):
+#     if 'x**' in eq:
+#         i = eq.find('**')
+#         degree_num = int(eq[i + 2:i + 3])
+#     elif ('x' in eq) and ('**' not in eq):
+#         degree_num = 1
+#     else:
+#         degree_num = -1
+#     return degree_num
+#
+# # получение коэфф многочлена
+# def koef_mn(eq):
+#     if 'x' in eq:
+#         i = eq.find('x')
+#         koef_num = int(eq[:i - 1])
+#     return koef_num
+
+# функция сложения выражений
+def addition(eq_1: dict, eq_2: dict):
+    final_eq = {}
+    final_eq.update(eq_1)
+    final_eq.update(eq_2)
+    for key in final_eq:
+        final_eq[key] = eq_1.get(key, 0) + eq_2.get(key, 0)
+    return final_eq
+
+# применяем функции и получаем конечное выражение
 eq_1 = ' '.join(eq_1)
 eq_1 = eq_1[:-4]
-eq_1 = eq_1.split(' ')
-print(eq_1)
+eq_2 = ' '.join(eq_2)
+eq_2 = eq_2[:-4]
+eq_1 = encode(eq_1)
+eq_2 = encode(eq_2)
+final_eq = addition(eq_1, eq_2)
+final_eq = decode(final_eq)
+print()
+print(f'Выражение, полученное после сложения двух многочленов : {final_eq}')
 
 
 

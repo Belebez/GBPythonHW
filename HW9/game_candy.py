@@ -25,3 +25,4 @@ def new_game():
     else:
         total = 150
         game = True
+
